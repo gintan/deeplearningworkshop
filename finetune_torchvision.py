@@ -17,7 +17,7 @@ print("Torchvision Version: ",torchvision.__version__)
 
 DATA_DIR = "data/cifar10"
 
-BATCH_SIZE = 32
+BATCH_SIZE = 512
 NUM_EPOCHS = 15
 
 def main():
