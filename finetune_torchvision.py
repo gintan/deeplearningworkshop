@@ -1,4 +1,6 @@
-# Full credit to Chris Watkins
+# This script has been adapted from the Pytorch tutorial:
+# "Finetuning Torchvision Models" 
+# https://pytorch.org/tutorials/beginner/finetuning_torchvision_models_tutorial.html
 
 from __future__ import print_function
 from __future__ import division
@@ -8,12 +10,17 @@ import torch.optim as optim
 import numpy as np
 import torchvision
 from torchvision import datasets, models, transforms
-# import matplotlib.pyplot as plt
+
 import time
 import os
 import copy
+
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
+
 print("PyTorch Version: ",torch.__version__)
-print("Torchvision Version: ",torchvision.__version__)
+#print("Torchvision Version: ",torchvision.__version__)
 
 DATA_DIR = "data/cifar10"
 
@@ -89,9 +96,22 @@ def main():
     # Setup the loss fxn
     criterion = nn.CrossEntropyLoss()
 
+    print("Training model...")
     # Train and evaluate
     model_ft, hist = train_model(device, model_ft, dataloaders_dict, criterion, optimizer_ft, num_epochs=NUM_EPOCHS)
+    print("... done")
 
+    print("Plotting training history")
+    plot_hist = [h.cpu().numpy() for h in hist]
+
+    plt.title("Validation Accuracy vs. Number of Training Epochs")
+    plt.xlabel("Training Epochs")
+    plt.ylabel("Validation Accuracy")
+    plt.plot(range(1,num_epochs+1), plot_hist, label="Pretrained")
+    plt.ylim((0,1.))
+    plt.xticks(np.arange(1, num_epochs+1, 1.0))
+    plt.legend()
+    plt.savefig("training_accuracy.png")
 
 def train_model(device, model, dataloaders, criterion, optimizer, num_epochs=25):
     since = time.time()
