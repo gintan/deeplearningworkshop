@@ -24,7 +24,7 @@ print("PyTorch Version: ",torch.__version__)
 
 DATA_DIR = "data/cifar10"
 
-BATCH_SIZE = 512
+BATCH_SIZE = 4096
 NUM_EPOCHS = 15
 
 def main():
