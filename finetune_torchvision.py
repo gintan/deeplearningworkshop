@@ -25,7 +25,7 @@ print("PyTorch Version: ",torch.__version__)
 DATA_DIR = "data/cifar10"
 
 # Batch size for training (change depending on how much memory you have)
-BATCH_SIZE = 4096
+BATCH_SIZE = 32
 NUM_EPOCHS = 15
 
 def main():
